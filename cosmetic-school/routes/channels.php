@@ -9,6 +9,7 @@
 | application supports. The given channel authorization callbacks are
 | used to check if an authenticated user can listen to the channel.
 |
+|
 */
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
