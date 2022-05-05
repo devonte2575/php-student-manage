@@ -738,11 +738,4 @@ if (!empty($courses)) {
 
         return true;
     }
-
-    $('.date_range').daterangepicker({
-        startDate: new Date(),
-        locale: {
-            format: 'DD-MM-YYYY'
-        }
-    });
 </script>
