@@ -17,7 +17,7 @@
                                         <a class="dropdown-item" href="monitoring-dashboard.html">Monitoring</a>
                                         <a class="dropdown-item" href="crypto-dashboard.html">Cryptocurrency</a>
                                         <a class="dropdown-item" href="pm-dashboard.html">Project Management</a>
-                                        <a class="dropdown-item" href="product-dashboard.html">Product</a>
+                                        <a class="dropdown-item" href="product-dashboard.html">Products</a>
                                         <a class="dropdown-item" href="statistics-dashboard.html">Statistics</a>
                                     </div>                            </div>
                             </div>
