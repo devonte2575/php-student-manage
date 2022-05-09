@@ -16,6 +16,7 @@ include(app_path().'/common/panel/header.php');
     canvas{
         box-shadow: 0 3px 20px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
     }
+    
             .txt-center {
                 text-align: -webkit-center;
             }
