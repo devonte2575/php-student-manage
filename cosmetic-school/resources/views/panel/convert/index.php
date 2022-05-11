@@ -41,11 +41,7 @@
                                                         <select name="convert" id="contact_type" type="text" class="form-control" required onchange="show_form(this.value);">
                                                         <option value=""><?php echo trans('forms.please_select'); ?></option>
                                                             
-                                                        <option value="Employee"><?php echo trans('forms.employee'); ?></option>
-                                                        
-                                                        <option value="Expert Advisor"><?php echo trans('forms.expert_advisor'); ?></option>
-                                                            
-                                                        <option value="Coach"><?php echo trans('forms.lecturer'); ?> / <?php echo trans('forms.coach'); ?></option>
+                                                        <option value="Employee"><?php echo trans('forms.employee'); ?></option>                                                                                                                
                                                             
                                                         <option value="Student"><?php echo trans('forms.student'); ?> / <?php echo trans('forms.coachee'); ?></option>
                                                             
