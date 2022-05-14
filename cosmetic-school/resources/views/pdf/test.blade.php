@@ -158,22 +158,6 @@
 							<ul>
 								@if(str_contains($durch_belast_options, 'durch_belast_options_gesund'))
 								<li>gesundheitlich</li>
-
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_familie'))
-								<li>familiäre</li>
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_partner'))
-								<li>partnerschaftliche</li>
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_kinder'))
-								<li>Kinderbetreuung</li>
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_financial'))
-								<li>finanzielle</li>
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_recht'))
-								<li>rechtliche</li>
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_sprach'))
-								<li>sprachliche/kulturelle</li>
-								@endif @if(str_contains($durch_belast_options, 'durch_belast_options_pflege'))
-								<li>Pflege von Angehörigen</li>
-								@endif @if(isset($durch_belast_options_other))
 								<li>
 									Sonstiges:
 									<ul>
