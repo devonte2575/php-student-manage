@@ -312,7 +312,6 @@
         var token='<?php echo csrf_token(); ?>';
         formData.append('_token', token);
         formData.append('id', id);
-        
         $.ajax({
                 url: "<?php echo url('admin/fetch-modules') ?>",
                 type: "POST",
@@ -322,10 +321,9 @@
                 },
                 contentType: false,
                 processData:false,
-                success: function(data) { //console.log(data);
-                    //success
-                    // here we will handle errors and validation messages
+                success: function(data) { //console.log(data);        
                     if ( ! data.success) {
+                        console.log(data);
                     } else {
                         // ALL GOOD! just show the success message!
                         $("#products").append(data.products);
