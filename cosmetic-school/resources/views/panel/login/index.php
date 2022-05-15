@@ -13,7 +13,7 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-
+    
 <link href="<?php echo url('/assets/main.07a59de7b920cd76b874.css'); ?>" rel="stylesheet"></head>
 
 <body>

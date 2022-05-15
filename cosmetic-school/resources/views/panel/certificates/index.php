@@ -26,8 +26,7 @@
                                             <div class="card-header-tab card-header">
                                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                                                 </div>
-                                                
-                                                
+                                                                                                
                                             </div>
                                             <?php if(Session::has('error')) { ?>
                                             <p class="alert alert-danger"><?php echo Session::get('error'); ?></p>
