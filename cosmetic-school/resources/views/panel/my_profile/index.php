@@ -10,12 +10,7 @@
                                                     cursor: pointer;
                                                     user-select: none;
                                                 }
-                                                
-                                                div.selected
-                                                {
-                                                    background-color: #3ac47d;
-                                                    color: white;
-                                                }
+                                                                                           
                                             </style>
                                             <style>
             .jay-signature-pad {
