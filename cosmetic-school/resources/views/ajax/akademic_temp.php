@@ -21,8 +21,6 @@
                 <input type="text" name="tagesdoku_coachee" id="tagesdoku_coachee" class="form-control" value="<?php foreach($students as $stud) { echo $stud['student']->name . ' '; }?>" readonly>
         </div>
 
-        
-
         <div class="form-group col-md-4">
                 <label>@lang('forms.appointment_ue')</label>
                 <input type="text" name="tagesdoku_ue" id="tagesdoku_ue" class="form-control" value="{{$appointment->ue}}" readonly>
