@@ -15,8 +15,8 @@ $days_i = 0;
         <div class="app-inner-layout__sidebar">
             <div class="app-layout__sidebar-inner dropdown-menu-rounded">
                 <div class="nav flex-column">
-                    <div class="nav-item-header text-primary nav-item">Dashboards
-                        Examples</div>
+                    <div class="nav-item-header text-primary nav-item">Dashboards</div>
+
                     <a class="dropdown-item active" href="analytics-dashboard.html">Analytics</a>
                     <a class="dropdown-item" href="management-dashboard.html">Management</a>
                     <a class="dropdown-item" href="advertisement-dashboard.html">Advertisement</a>
