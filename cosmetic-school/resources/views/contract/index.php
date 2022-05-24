@@ -189,6 +189,7 @@ include(app_path().'/common/header.php');
                     $("#submit_btn").attr('disabled', false);
                     // here we will handle errors and validation messages
                     if ( ! data.success) {
+                        alert(data.success)
                     } else {
                         // ALL GOOD! just show the success message!
                         //alert("Saved");
