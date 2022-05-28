@@ -44,6 +44,7 @@ return [
     'next_appt_with_funding_source' => 'Next appointment at Sponsors:',
     'have_internet' => 'Internet Vorhanden?',
     'corona_vaccinnated' => 'Vaccinated for Corona?',
+    'participation_nice' => 'Participation in Actions',
     
     'know_smartphone' => 'Smartphone',
     'know_laptop' => 'Laptop',
