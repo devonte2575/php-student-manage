@@ -674,6 +674,22 @@ if (!empty($courses)) {
 
         var id = $("#mod").val('');
     }
+
+    function handleOnRaidoButtons(course_id) {
+        var radio_id = '#yes_radio_' + course_id;
+        var textarea_depending_radio_id = '#textarea_depending_radio_' + course_id;
+        var calendar_depending_radio_id = '#calendar_depending_radio_' + course_id;
+        console.log(radio_id)
+        if ($(radio_id).is(':checked')) {
+            $(textarea_depending_radio_id).show();
+            $(calendar_depending_radio_id).show();
+        } else {
+            $(textarea_depending_radio_id).hide();
+            $(calendar_depending_radio_id).hide();
+
+        }
+    } 
+    
     // check if the appointment has not been completed yet
     function checkIncompleteAppointmentExist(course_id)
     {
