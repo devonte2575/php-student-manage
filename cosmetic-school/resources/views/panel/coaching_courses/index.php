@@ -693,7 +693,6 @@ if (!empty($courses)) {
     // check if the appointment has not been completed yet
     function checkIncompleteAppointmentExist(course_id)
     {
-        window.$("#course_modal").modal();
         $.ajax({            
             url: "<?php echo url('admin/has-incomplete-appointments') ?>" + "/" + course_id,
             headers: {
@@ -705,10 +704,10 @@ if (!empty($courses)) {
                 console.log(JSON.stringify(data));
                 if (data.success === 1) {
                     if (confirm('There are incomplete appointments. Are you sure you want to generate Abschlussbericht Report?')) {
-                        $("#course_modal").modal("show")
+                        submitForm(course_id);
                     }
                 } else if (data.success === 2) {
-                    $("#course_modal").modal("show")
+                    submitForm(course_id);
                 }
             },
             error: function()  {
