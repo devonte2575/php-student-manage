@@ -716,6 +716,19 @@ if (!empty($courses)) {
         });
        
     }
+    function handleSubmit(course_id, is_created) {         
+        var modal_id = '#course-modal-' + course_id;
+        $(modal_id).toggle(); 
+        $('.modal-backdrop').hide();
+        
+        if (is_created == true){
+            alert('Already report created.');       
+       
+        }  
+        else{
+            checkIncompleteAppointmentExist(course_id);
+        }
+    }
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
 <script>
