@@ -780,7 +780,9 @@
             
         } else {
             //alert("YES");
-        
+        {
+            
+        }
         var period=$("#period_field").val();
         var dates=period.split(' - ');
         if(dates[0]==dates[1]) 
