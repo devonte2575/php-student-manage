@@ -737,6 +737,67 @@ if (!empty($courses)) {
             return;
         }
     }
+
+    function submitForm(course_id) {
+
+$("#create_report_backdrop").show();
+// $.LoadingOverlay("show");
+var formName = 'course_form_' + course_id;
+var form = $('form[name="' + formName + '"]');
+var values = form.serializeArray() 
+var formData = new FormData();
+var token = '<?php echo csrf_token(); ?>';
+var newValues = values.reduce((acc, cur) => ({ ...acc, [cur.name]: cur.value }), {});
+console.log(newValues);
+var ziele_avgs = newValues.measure_avgs;
+var ziele_coachee = newValues.measure_coachee;
+var vermit_begin = newValues.vermit_begin;
+var vermit_content = newValues.vermit_content;
+var vermitting = newValues.vermitting;                
+var recommendations_1 = newValues.recommendations_1;
+var recommendations_2 = newValues.recommendations_2;
+var c_id = course_id;
+formData.append('_token', token);
+formData.append('ziele_avgs', ziele_avgs);
+formData.append('ziele_coachee', ziele_coachee);
+formData.append('recommendations_1', recommendations_1);
+formData.append('recommendations_2', recommendations_2);
+formData.append('vermit_content', vermit_content);    
+formData.append('vermitting', vermitting);
+formData.append('vermit_begin', vermit_begin);
+formData.append('course_id', c_id);    
+toastr.options = {
+                timeOut: 5000,
+                extendedTimeOut: 0,
+                fadeOut: 200,      
+};
+$.ajax({
+    url: "<?php echo url('/admin/coaching-end-report/'); ?>",
+    type: "POST",
+    data: formData,
+    beforeSend: function(){ 
+        $("#submit_btn_create").attr('disabled', true);
+    },
+    contentType: false,
+    processData: false,
+    success: function(data) {
+        $("#create_report_backdrop").hide();    
+        // $.LoadingOverlay("hide");   
+        if(data.success){                                
+                    
+        }  
+        else{         
+
+        }            
+        
+    },
+    error: function(error) {
+        $("#create_report_backdrop").hide();          
+    }
+});        
+}
+
+
     function sendReport(course_id) {
 
 $("#create_report_backdrop").show();
