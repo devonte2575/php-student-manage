@@ -805,38 +805,61 @@ if (!empty($courses)) {
 
     function sendReport(course_id) {
 
-$("#create_report_backdrop").show();
-// $.LoadingOverlay("show");
-var formData = new FormData();
-var token = '<?php echo csrf_token(); ?>';
-var c_id = course_id;
-formData.append('_token', token);
-formData.append('course_id', c_id);    
+        $("#create_report_backdrop").show();
+        // $.LoadingOverlay("show");
+        var formData = new FormData();
+        var token = '<?php echo csrf_token(); ?>';
+        var c_id = course_id;
+        formData.append('_token', token);
+        formData.append('course_id', c_id);    
 
-toastr.options = {
-            timeOut: 5000,
-            extendedTimeOut: 0,
-            fadeOut: 200,      
-};
-$.ajax({
-    url: "<?php echo url('/admin/send-report/'); ?>",
-    type: "POST",
-    data: formData,
-    beforeSend: function(){  
-    },
-    contentType: false,
-    processData: false,
-    success: function(data) {
-        // $.LoadingOverlay("hide");
-        $("#create_report_backdrop").hide();                
-        toastr.info("Report has been sent to "+data.email+" successfully.");    
-    },
-    error: function(error) {
-        $("#create_report_backdrop").hide();   
-        toastr.info("It is failed to send report.");                           
-    }
-});
+        toastr.options = {
+                    timeOut: 5000,
+                    extendedTimeOut: 0,
+                    fadeOut: 200,      
+        };
+        $.ajax({
+            url: "<?php echo url('/admin/send-report/'); ?>",
+            type: "POST",
+            data: formData,
+            beforeSend: function(){  
+            },
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                // $.LoadingOverlay("hide");
+                $("#create_report_backdrop").hide();                
+                toastr.info("Report has been sent to "+data.email+" successfully.");    
+            },
+            error: function(error) {
+                $("#create_report_backdrop").hide();   
+                toastr.info("It is failed to send report.");                           
+            }
+        });
+        function deleteReport(course_id) {
 
+            var formData = new FormData();
+            var token = '<?php echo csrf_token(); ?>';
+            var c_id = course_id;
+            formData.append('_token', token);
+            formData.append('course_id', c_id);      
+            $.ajax({
+                url: "<?php echo url('/admin/delete-report/'); ?>",
+                type: "POST",
+                data: formData,
+                beforeSend: function(){  
+                },
+                contentType: false,
+                processData: false,
+                success: function(data) {   
+                    if(data.success){
+                        location.reload();         
+                    }
+                },
+                error: function(error) {      
+                }
+            });
+        }
 }
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
