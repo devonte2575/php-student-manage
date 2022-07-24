@@ -326,9 +326,20 @@
                                                             <i class="fa fa-edit"></i>
                                                         </button></a>
                                                
-                                                    <!-- <a  data-toggle="tooltip" title="Abschlussbericht erstellen"><button class="border-0 btn-transition btn btn-outline-success" onclick="checkIncompleteAppointmentExist(<?php echo $course['course']->id;?>)"><i class="fa fa-handshake"></i></button>
-                                                    </a> -->
-                                                    <button class="border-0 btn-transition btn btn-outline-success" style="padding-top:1px; padding-bottom:0px;" data-toggle="modal" data-target="#course_modal"><i class="fa fa-handshake"></i></button>
+                                                        <?php if ($course['is_created'] == 'true') { ?>
+                                                    <a target = '_blank' href="<?php echo $course['report_path'] ?>">
+                                                        <button class="border-0 btn-transition btn btn-outline-success" style="padding-top:1px; padding-bottom:0px;"><i class="fa fa-handshake"></i></button>
+                                                    </a>                                               
+                                                    <?php } else { ?>
+                                                    <button class="border-0 btn-transition btn btn-outline-success" style="padding-top:1px; padding-bottom:0px;" data-toggle="modal" data-target="#course-modal-<?php echo $course['course']->id;?>"><i class="fa fa-handshake"></i></button>
+                                                    <?php }?>
+                                                    
+                                                    <?php if($course['is_created'] == 'true'){ ?>
+                                                       
+                                                       <button class="btn btn-success" onclick="deleteReport(<?php echo $course['course']->id; ?>)">Delete</button>                                                     
+                                                       <button class="btn btn-success" onclick="sendReport(<?php echo $course['course']->id; ?>)">Send</button>                                                     
+                                                          
+                                                    <?php }?> 
 
                                                     <form action="" method="post" style="display:inline;">
                                                         <?php echo csrf_field(); ?>
@@ -337,7 +348,7 @@
                                                         <button class="border-0 btn-transition btn btn-outline-danger" onclick="return confirm('Do you really want to delete this course?');">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
-                                                    </form>
+                                                    </form>  
                                                 </td>
                                             </tr>
                                     <?php }
