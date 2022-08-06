@@ -1,5 +1,9 @@
 <?php include(app_path() . '/common/panel/header.php'); ?>
-
+<div id="create_report_backdrop" style="display:none">
+    <div style="display:flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1500">
+        <img src="../images/loader2.gif" style="width: 100px; height: 100px"/>
+    </div>
+</div>
 <div class="app-inner-layout app-inner-layout-page">
     <div class="app-inner-layout__wrapper">
         <div class="app-inner-layout__sidebar">
@@ -319,14 +323,15 @@
 
 
                                                     <a href="<?php echo url('admin/course-appointments/' . $course['course']->id); ?>">
-
-                                                        <button class="border-0 btn-transition btn btn-outline-success" style="padding-top:1px; padding-bottom:0px;"><i class="fa fa-calendar"></i></button></a>
+                                                        <button class="border-0 btn-transition btn btn-outline-success" style="padding-top:1px; padding-bottom:0px;"><i class="fa fa-calendar"></i></button>
+                                                    </a>
 
                                                     <a href="<?php echo url('admin/edit-course/' . $course['course']->id); ?>"><button class="border-0 btn-transition btn btn-outline-success">
                                                             <i class="fa fa-edit"></i>
-                                                        </button></a>
-                                               
-                                                        <?php if ($course['is_created'] == 'true') { ?>
+                                                        </button>
+                                                    </a>
+
+                                                    <?php if ($course['is_created'] == 'true') { ?>
                                                     <a target = '_blank' href="<?php echo $course['report_path'] ?>">
                                                         <button class="border-0 btn-transition btn btn-outline-success" style="padding-top:1px; padding-bottom:0px;"><i class="fa fa-handshake"></i></button>
                                                     </a>                                               
@@ -348,7 +353,8 @@
                                                         <button class="border-0 btn-transition btn btn-outline-danger" onclick="return confirm('Do you really want to delete this course?');">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
-                                                    </form>  
+                                                    </form>                                                    
+
                                                 </td>
                                             </tr>
                                     <?php }
@@ -366,12 +372,106 @@
 </div>
 </div>
 <?php include(app_path() . '/common/panel/footer.php'); ?>
-<?php include(app_path() . '/common/panel/coach_course_modal.php'); ?>
 <?php
 if (!empty($courses)) {
     foreach ($courses as $course) {
 ?>
-        <div class="modal fade" id="course-<?php echo $course['course']->id; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal fade" id="course-modal-<?php echo $course['course']->id; ?>" tabindex="-1" role="dialog"  aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form action="" method="post" id="course_form_<?php echo $course['course']->id?>" name="course_form_<?php echo $course['course']->id?>" enctype="multipart/form-data">
+                    <input type="hidden" name="t_id" value="0" id="task_id">
+                    <input type="hidden" name="c_id" value="<?php echo $course['course']->id;?>" id="course_id">
+                    <?php echo csrf_field(); ?>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-title-task"><?php echo trans('dashboard.endreport_documentation_title'); ?></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    <label for="description" class="" style="font-weight:bold">Ziele aus dem AVGS</label>
+                                    <textarea class="form-control" name="measure_avgs" id="measure_avgs" placeholder="<?php echo trans(
+                                        'forms.write_here'
+                                    ); ?>"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    <label for="description" class="" style="font-weight:bold">Ziele des Kunden</label>
+                                    <textarea class="form-control" name="measure_coachee" id="measure_coachee" placeholder="<?php echo trans(
+                                        'forms.write_here'
+                                    ); ?>"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="Maßnahme" class="" style="font-weight:bold">Konkretes Ergebnis/erbrachte Leistungen<font style="color:red;">*</font></label>
+                                <div>
+                                    <div style="float: left">Vermittlung?</div>
+                                    <div style="float: left; margin-left: 30px">
+                                        <div class="position-relative form-group">
+                                            <input type="radio" id="yes_radio_<?php echo $course['course']->id ?>" class="" name="vermitting" value="1" checked onchange="handleOnRaidoButtons(<?php echo $course['course']->id ?>)"> Yes
+                                        </div>
+                                        <div class="position-relative form-group">
+                                            <input type="radio" id="no_radio_<?php echo $course['course']->id ?>" class="" name="vermitting" value="0" onchange="handleOnRaidoButtons(<?php echo $course['course']->id ?>)"> No
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="textarea_depending_radio_<?php echo $course['course']->id ?>">
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    <textarea class="form-control" name="vermit_content" id="vermit_content" placeholder="<?php echo trans(
+                                        'forms.write_vermittlung_note'
+                                    ); ?>"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="calendar_depending_radio_<?php echo $course['course']->id ?>">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="examplePassword11" class=""> Wann beginn <font style="color:red;">*</font></label>
+                                    <input name="vermit_begin" id="vermit_begin" type="text" class="form-control calendar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="Maßnahme" class="" style="align:left;  font-weight:bold; margin-top: 20px">Weiterführende Empfehlungen<font style="color:red;">*</font></label>
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    <label for="description" class="" style="font-weight:bold">1. Werden weitere Coachingstunden benötigt, wenn ja, zu welchem Thema?</label>
+                                    <textarea class="form-control" name="recommendations_1" id="recommendations_1" placeholder="<?php echo trans(
+                                        'forms.write_here'
+                                    ); ?>"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    <label for="description" class="" style="font-weight:bold">2. Was wird dem Coachee empfohlen?</label>
+                                    <textarea class="form-control" name="recommendations_2" id="recommendations_2" placeholder="<?php echo trans(
+                                        'forms.write_here'
+                                    ); ?>"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="add-task-close"><?php echo trans('forms.cancel'); ?></button>
+                        <button type="button" class="btn btn-primary pull-right" style="margin-right:10px;" id="submit_btn_task" onclick="handleSubmit(<?php echo $course['course']->id;?>, <?php echo $course['is_created'];?>)"><?php echo trans('forms.submit'); ?></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+ <div class="modal fade" id="course-<?php echo $course['course']->id; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -685,22 +785,6 @@ if (!empty($courses)) {
 
         var id = $("#mod").val('');
     }
-
-    function handleOnRaidoButtons(course_id) {
-        var radio_id = '#yes_radio_' + course_id;
-        var textarea_depending_radio_id = '#textarea_depending_radio_' + course_id;
-        var calendar_depending_radio_id = '#calendar_depending_radio_' + course_id;
-        console.log(radio_id)
-        if ($(radio_id).is(':checked')) {
-            $(textarea_depending_radio_id).show();
-            $(calendar_depending_radio_id).show();
-        } else {
-            $(textarea_depending_radio_id).hide();
-            $(calendar_depending_radio_id).hide();
-
-        }
-    } 
-    
     // check if the appointment has not been completed yet
     function checkIncompleteAppointmentExist(course_id)
     {
@@ -727,6 +811,21 @@ if (!empty($courses)) {
         });
        
     }
+
+    function handleOnRaidoButtons(course_id) {
+        var radio_id = '#yes_radio_' + course_id;
+        var textarea_depending_radio_id = '#textarea_depending_radio_' + course_id;
+        var calendar_depending_radio_id = '#calendar_depending_radio_' + course_id;
+        console.log(radio_id)
+        if ($(radio_id).is(':checked')) {
+            $(textarea_depending_radio_id).show();
+            $(calendar_depending_radio_id).show();
+        } else {
+            $(textarea_depending_radio_id).hide();
+            $(calendar_depending_radio_id).hide();
+
+        }
+    }  
     function handleSubmit(course_id, is_created) {         
         var modal_id = '#course-modal-' + course_id;
         $(modal_id).toggle(); 
@@ -740,6 +839,7 @@ if (!empty($courses)) {
             checkIncompleteAppointmentExist(course_id);
         }
     }
+    
     function isCreatedReport(course_id, is_created) {    
         if (is_created == true){
             alert('Already report created.');
@@ -811,8 +911,32 @@ if (!empty($courses)) {
                 $("#create_report_backdrop").hide();          
             }
         });        
-        }
+    }
 
+    function deleteReport(course_id) {
+
+        var formData = new FormData();
+        var token = '<?php echo csrf_token(); ?>';
+        var c_id = course_id;
+        formData.append('_token', token);
+        formData.append('course_id', c_id);      
+        $.ajax({
+            url: "<?php echo url('/admin/delete-report/'); ?>",
+            type: "POST",
+            data: formData,
+            beforeSend: function(){  
+            },
+            contentType: false,
+            processData: false,
+            success: function(data) {   
+                if(data.success){
+                    location.reload();         
+                }
+            },
+            error: function(error) {      
+            }
+        });
+    }
 
     function sendReport(course_id) {
 
@@ -847,31 +971,9 @@ if (!empty($courses)) {
                 toastr.info("It is failed to send report.");                           
             }
         });
-        function deleteReport(course_id) {
 
-            var formData = new FormData();
-            var token = '<?php echo csrf_token(); ?>';
-            var c_id = course_id;
-            formData.append('_token', token);
-            formData.append('course_id', c_id);      
-            $.ajax({
-                url: "<?php echo url('/admin/delete-report/'); ?>",
-                type: "POST",
-                data: formData,
-                beforeSend: function(){  
-                },
-                contentType: false,
-                processData: false,
-                success: function(data) {   
-                    if(data.success){
-                        location.reload();         
-                    }
-                },
-                error: function(error) {      
-                }
-            });
-        }
-}
+    }
+
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
 <script>
@@ -916,4 +1018,15 @@ if (!empty($courses)) {
             format: 'DD-MM-YYYY'
         }
     });
+    $('.calendar').daterangepicker({
+        singleDatePicker: true,
+        startDate: new Date(),
+        minDate: new Date(),
+        locale: {
+            format: 'DD-MM-YYYY'
+        }
+    });
+
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
