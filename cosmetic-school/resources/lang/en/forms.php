@@ -44,7 +44,6 @@ return [
     'next_appt_with_funding_source' => 'Next appointment at Sponsors:',
     'have_internet' => 'Internet Vorhanden?',
     'corona_vaccinnated' => 'Vaccinated for Corona?',
-    'participation_nice' => 'Participation in Actions',
     
     'know_smartphone' => 'Smartphone',
     'know_laptop' => 'Laptop',
@@ -339,6 +338,8 @@ return [
     'remove_experience' => 'Remove experience',
     'remove_education' => 'Remove education',
     'write_note' => 'Write a note...',
+    'write_vermittlung_note' => 'Mention details about the offered services',
+    'write_here'=>'Please mention here',
     'full_day_holiday' => 'There is a holiday on this date. Please select another date.',
     'create_certificate' => 'Create Certificate',
     'retraining_certificates_of_completion' => 'Retraining Completion Certificate',
@@ -419,6 +420,7 @@ return [
     'begin_end_date' => 'Begin & End Date',
     'daily_documentation_text' => 'Tagesdoku Text',
     'endreport_documentation_text' => 'Abschlussbericht Text',
+    'endreport_documentation_title' => 'Create Abschlussbericht',
     'add_new_module_item_service' => 'Add New Module Item Service',
     'module_item_services' => 'Module Item Services',
     'edit_module_item_service' => 'Edit Module Item Service',
@@ -444,4 +446,6 @@ return [
     'motiviert_problem_solve'=>'Ist motiviert, Problemen auf den Grund zu gehen',
     'formuliert_klare_erwartung'=>'Formuliert klare Erwartungen',
     'coaching_verhalten' => 'Coachingverhalten',
+    'goal_of_the_measure' => 'Goal of the measure',
+    'targets_from_the_avgs' => 'Targets from the AVGS'
 ];
